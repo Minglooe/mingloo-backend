@@ -4,7 +4,7 @@ GO_FILES=$(shell dir /s /b *.go)
 
 # Build the executable
 build:
-	go build -o $(BINARY_NAME) cmd\main.go
+	go build -o $(BINARY_NAME) main.go
 
 # Run the server (build + run)
 run: build
@@ -21,3 +21,6 @@ install:
 # Start the server (build + run)
 start: build
 	./$(BINARY_NAME)
+
+swagger:
+	swag init

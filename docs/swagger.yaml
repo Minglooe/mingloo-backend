@@ -1,0 +1,46 @@
+definitions:
+  models.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/helloworld:
+    get:
+      consumes:
+      - application/json
+      description: retorna os usuários da aplicação
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: GET usuários
+      tags:
+      - example
+  /api/v1/helloworld2:
+    get:
+      consumes:
+      - application/json
+      description: retorna os usuários da aplicação
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: GET usuários
+      tags:
+      - example
+swagger: "2.0"

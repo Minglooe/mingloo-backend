@@ -1,14 +1,18 @@
 package routes
 
 import (
-	"github.com/gin-gonic/gin"
 	"mingloo/web-api/internal/handlers"
+
+	"github.com/gin-gonic/gin"
 )
 
 func RegisterRoutes(router *gin.Engine) {
-	api := router.Group("/api")
+	api := router.Group("/api/v1")
 	{
-		api.GET("/users", handlers.GetUsers)
-		api.POST("/users", handlers.CreateUser)
+		users := api.Group("/users")
+		{
+			users.GET("", handlers.GetUsers)
+			users.POST("", handlers.CreateUser)
+		}
 	}
 }

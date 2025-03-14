@@ -21,3 +21,11 @@ install:
 # Start the server (build + run)
 start: build
 	./$(BINARY_NAME)
+
+# intall air (hot reload)
+install-air:
+	go install github.com/cosmtrek/air@latest
+
+# Start the server with hot reload (install air first)
+hot:
+	air

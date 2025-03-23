@@ -24,3 +24,11 @@ start: build
 
 swagger:
 	swag init
+	
+# intall air (hot reload)
+install-air:
+	go install github.com/cosmtrek/air@latest
+
+# Start the server with hot reload (install air first)
+hot:
+	air

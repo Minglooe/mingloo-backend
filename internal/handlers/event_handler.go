@@ -11,7 +11,7 @@ import (
 // @Description Retornar uma lista contendo todos os eventos ativos na aplicação
 // @Tags Eventos
 // @Produce json
-// @Success 200 {object} object{success=boolean,data=[]models.Event}
+// @Success 200 {object} http_responses.ResponseWrapper{data=[]models.Event}
 // @Router /events [get]
 func GetEvents(c *gin.Context) {
 	c.JSON(http.StatusNotImplemented, gin.H{
@@ -25,7 +25,7 @@ func GetEvents(c *gin.Context) {
 // @Tags Eventos
 // @Accept json
 // @Produce json
-// @Success 200 {object} object{success=boolean,message=string}
+// @Success 200 {object} http_responses.ResponseWrapper{data=string}
 // @Router /events [post]
 func CreateEvent(c *gin.Context) {
 	c.JSON(http.StatusNotImplemented, gin.H{

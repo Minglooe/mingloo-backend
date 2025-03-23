@@ -1,5 +1,5 @@
 definitions:
-  models.Address:
+  Address:
     properties:
       city:
         description: Cidade
@@ -30,7 +30,7 @@ definitions:
         type: string
         x-order: "6"
     type: object
-  models.Date:
+  Date:
     properties:
       end:
         description: Data e hora de término
@@ -41,11 +41,11 @@ definitions:
         type: string
         x-order: "0"
     type: object
-  models.Event:
+  Event:
     properties:
       address:
         allOf:
-        - $ref: '#/definitions/models.Address'
+        - $ref: '#/definitions/Address'
         description: Endereço completo do evento
         x-order: "2"
       capacity:
@@ -54,7 +54,7 @@ definitions:
         x-order: "7"
       date:
         allOf:
-        - $ref: '#/definitions/models.Date'
+        - $ref: '#/definitions/Date'
         description: Data do evento
         x-order: "3"
       description:
@@ -79,11 +79,20 @@ definitions:
         x-order: "5"
       type:
         allOf:
-        - $ref: '#/definitions/models.Type'
+        - $ref: '#/definitions/Type'
         description: Tipo de ingresso (Livre, Compra, Convite, Híbrido)
         x-order: "8"
     type: object
-  models.Type:
+  Response:
+    properties:
+      data:
+        x-order: "1"
+      success:
+        example: true
+        type: boolean
+        x-order: "0"
+    type: object
+  Type:
     properties:
       description:
         description: Descrição do tipo de ingresso (o que ele implica)
@@ -147,14 +156,14 @@ paths:
         "200":
           description: OK
           schema:
-            properties:
-              data:
-                items:
-                  $ref: '#/definitions/models.Event'
-                type: array
-              success:
-                type: boolean
-            type: object
+            allOf:
+            - $ref: '#/definitions/Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Event'
+                  type: array
+              type: object
       summary: Retorna uma lista dos eventos
       tags:
       - Eventos
@@ -168,12 +177,12 @@ paths:
         "200":
           description: OK
           schema:
-            properties:
-              message:
-                type: string
-              success:
-                type: boolean
-            type: object
+            allOf:
+            - $ref: '#/definitions/Response'
+            - properties:
+                data:
+                  type: string
+              type: object
       summary: Cadastra um novo evento
       tags:
       - Eventos

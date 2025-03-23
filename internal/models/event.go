@@ -7,8 +7,6 @@ import (
 )
 
 // Event representa as informações de um evento
-// swagger:response EventGetResponse
-// swagger:model
 type Event struct {
 	ID          uuid.UUID `extensions:"x-order=0" json:"id"`          // ID do evento
 	Name        string    `extensions:"x-order=1" json:"name"`        // Nome do evento
@@ -19,7 +17,7 @@ type Event struct {
 	Description string    `extensions:"x-order=6" json:"description"` // Descrição do evento (markdown ou WYSIWYG)
 	Capacity    int       `extensions:"x-order=7" json:"capacity"`    // Lotação máxima do evento
 	Type        Type      `extensions:"x-order=8" json:"type"`        // Tipo de ingresso (Livre, Compra, Convite, Híbrido)
-}
+} // @name Event
 
 // Address representa o endereço completo do evento
 type Address struct {
@@ -30,16 +28,16 @@ type Address struct {
 	Number       string `extensions:"x-order=4" json:"number"`       // Número
 	Complement   string `extensions:"x-order=5" json:"complement"`   // Complemento
 	ZipCode      string `extensions:"x-order=6" json:"zip_code"`     // CEP
-}
+} // @name Address
 
 // Date representa as datas de início e fim do evento
 type Date struct {
 	Start time.Time `extensions:"x-order=0" json:"start"` // Data e hora de início
 	End   time.Time `extensions:"x-order=1" json:"end"`   // Data e hora de término
-}
+} // @name Date
 
 // Type representa o tipo de ingresso para o evento
 type Type struct {
 	Label       string `extensions:"x-order=0" json:"label"`       // Tipo de ingresso (Livre, Compra, Convite, Híbrido)
 	Description string `extensions:"x-order=1" json:"description"` // Descrição do tipo de ingresso (o que ele implica)
-}
+} // @name Type

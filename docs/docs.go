@@ -78,18 +78,22 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/models.Event"
-                                    }
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Response"
                                 },
-                                "success": {
-                                    "type": "boolean"
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Event"
+                                            }
+                                        }
+                                    }
                                 }
-                            }
+                            ]
                         }
                     }
                 }
@@ -110,15 +114,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "message": {
-                                    "type": "string"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Response"
                                 },
-                                "success": {
-                                    "type": "boolean"
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
-                            }
+                            ]
                         }
                     }
                 }
@@ -126,7 +134,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "models.Address": {
+        "Address": {
             "type": "object",
             "properties": {
                 "state": {
@@ -166,7 +174,7 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Date": {
+        "Date": {
             "type": "object",
             "properties": {
                 "start": {
@@ -181,7 +189,7 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Event": {
+        "Event": {
             "type": "object",
             "properties": {
                 "id": {
@@ -198,7 +206,7 @@ const docTemplate = `{
                     "description": "Endereço completo do evento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/models.Address"
+                            "$ref": "#/definitions/Address"
                         }
                     ],
                     "x-order": "2"
@@ -207,7 +215,7 @@ const docTemplate = `{
                     "description": "Data do evento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/models.Date"
+                            "$ref": "#/definitions/Date"
                         }
                     ],
                     "x-order": "3"
@@ -236,14 +244,27 @@ const docTemplate = `{
                     "description": "Tipo de ingresso (Livre, Compra, Convite, Híbrido)",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/models.Type"
+                            "$ref": "#/definitions/Type"
                         }
                     ],
                     "x-order": "8"
                 }
             }
         },
-        "models.Type": {
+        "Response": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean",
+                    "x-order": "0",
+                    "example": true
+                },
+                "data": {
+                    "x-order": "1"
+                }
+            }
+        },
+        "Type": {
             "type": "object",
             "properties": {
                 "label": {

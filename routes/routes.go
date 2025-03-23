@@ -29,6 +29,8 @@ func RegisterRoutes(router *gin.Engine) {
 		{
 			events.GET("", handlers.GetEvents)
 			events.POST("", handlers.CreateEvent)
+			events.PATCH("", handlers.UpdateEvent)
+			events.DELETE("", handlers.DeleteEvent)
 		}
 	}
 }

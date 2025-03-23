@@ -66,7 +66,7 @@ const docTemplate = `{
         },
         "/events": {
             "get": {
-                "description": "Retornar uma lista contendo todos os eventos ativos na aplicação",
+                "description": "Retornar uma lista contendo todos os eventos ativos na aplicação.",
                 "produces": [
                     "application/json"
                 ],
@@ -99,7 +99,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Cadastra um novo evento na aplicação com o status ativo",
+                "description": "Cadastra um novo evento na aplicação com o status ativo.",
                 "consumes": [
                     "application/json"
                 ],
@@ -110,6 +110,92 @@ const docTemplate = `{
                     "Eventos"
                 ],
                 "summary": "Cadastra um novo evento",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/events/{id}": {
+            "put": {
+                "description": "Atualize um evento na aplicação por meio do seu ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Eventos"
+                ],
+                "summary": "Atualiza um evento",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id do Evento a ser atualizado",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Event"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Atualize um evento da aplicação por meio do seu ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Eventos"
+                ],
+                "summary": "Deleta um evento",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Event ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

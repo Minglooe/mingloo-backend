@@ -149,7 +149,7 @@ paths:
       - example
   /events:
     get:
-      description: Retornar uma lista contendo todos os eventos ativos na aplicação
+      description: Retornar uma lista contendo todos os eventos ativos na aplicação.
       produces:
       - application/json
       responses:
@@ -170,7 +170,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: Cadastra um novo evento na aplicação com o status ativo
+      description: Cadastra um novo evento na aplicação com o status ativo.
       produces:
       - application/json
       responses:
@@ -184,6 +184,57 @@ paths:
                   type: string
               type: object
       summary: Cadastra um novo evento
+      tags:
+      - Eventos
+  /events/{id}:
+    delete:
+      description: Atualize um evento da aplicação por meio do seu ID.
+      parameters:
+      - description: Event ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Deleta um evento
+      tags:
+      - Eventos
+    put:
+      consumes:
+      - application/json
+      description: Atualize um evento na aplicação por meio do seu ID.
+      parameters:
+      - description: Id do Evento a ser atualizado
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/Event'
+                  type: array
+              type: object
+      summary: Atualiza um evento
       tags:
       - Eventos
 swagger: "2.0"

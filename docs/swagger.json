@@ -52,9 +52,201 @@
                     }
                 }
             }
+        },
+        "/events": {
+            "get": {
+                "description": "Retornar uma lista contendo todos os eventos ativos na aplicação",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Eventos"
+                ],
+                "summary": "Retorna uma lista dos eventos",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/models.Event"
+                                    }
+                                },
+                                "success": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cadastra um novo evento na aplicação com o status ativo",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Eventos"
+                ],
+                "summary": "Cadastra um novo evento",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "success": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "models.Address": {
+            "type": "object",
+            "properties": {
+                "state": {
+                    "description": "Estado",
+                    "type": "string",
+                    "x-order": "0"
+                },
+                "neighborhood": {
+                    "description": "Bairro",
+                    "type": "string",
+                    "x-order": "1"
+                },
+                "city": {
+                    "description": "Cidade",
+                    "type": "string",
+                    "x-order": "2"
+                },
+                "street": {
+                    "description": "Rua",
+                    "type": "string",
+                    "x-order": "3"
+                },
+                "number": {
+                    "description": "Número",
+                    "type": "string",
+                    "x-order": "4"
+                },
+                "complement": {
+                    "description": "Complemento",
+                    "type": "string",
+                    "x-order": "5"
+                },
+                "zip_code": {
+                    "description": "CEP",
+                    "type": "string",
+                    "x-order": "6"
+                }
+            }
+        },
+        "models.Date": {
+            "type": "object",
+            "properties": {
+                "start": {
+                    "description": "Data e hora de início",
+                    "type": "string",
+                    "x-order": "0"
+                },
+                "end": {
+                    "description": "Data e hora de término",
+                    "type": "string",
+                    "x-order": "1"
+                }
+            }
+        },
+        "models.Event": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "ID do evento",
+                    "type": "string",
+                    "x-order": "0"
+                },
+                "name": {
+                    "description": "Nome do evento",
+                    "type": "string",
+                    "x-order": "1"
+                },
+                "address": {
+                    "description": "Endereço completo do evento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.Address"
+                        }
+                    ],
+                    "x-order": "2"
+                },
+                "date": {
+                    "description": "Data do evento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.Date"
+                        }
+                    ],
+                    "x-order": "3"
+                },
+                "model": {
+                    "description": "Modelo do evento (Presencial, Remoto, Híbrido)",
+                    "type": "string",
+                    "x-order": "4"
+                },
+                "photo": {
+                    "description": "Foto (Banner) do evento",
+                    "type": "string",
+                    "x-order": "5"
+                },
+                "description": {
+                    "description": "Descrição do evento (markdown ou WYSIWYG)",
+                    "type": "string",
+                    "x-order": "6"
+                },
+                "capacity": {
+                    "description": "Lotação máxima do evento",
+                    "type": "integer",
+                    "x-order": "7"
+                },
+                "type": {
+                    "description": "Tipo de ingresso (Livre, Compra, Convite, Híbrido)",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.Type"
+                        }
+                    ],
+                    "x-order": "8"
+                }
+            }
+        },
+        "models.Type": {
+            "type": "object",
+            "properties": {
+                "label": {
+                    "description": "Tipo de ingresso (Livre, Compra, Convite, Híbrido)",
+                    "type": "string",
+                    "x-order": "0"
+                },
+                "description": {
+                    "description": "Descrição do tipo de ingresso (o que ele implica)",
+                    "type": "string",
+                    "x-order": "1"
+                }
+            }
+        },
         "models.User": {
             "type": "object",
             "properties": {

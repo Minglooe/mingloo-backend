@@ -1,4 +1,99 @@
 definitions:
+  models.Address:
+    properties:
+      city:
+        description: Cidade
+        type: string
+        x-order: "2"
+      complement:
+        description: Complemento
+        type: string
+        x-order: "5"
+      neighborhood:
+        description: Bairro
+        type: string
+        x-order: "1"
+      number:
+        description: Número
+        type: string
+        x-order: "4"
+      state:
+        description: Estado
+        type: string
+        x-order: "0"
+      street:
+        description: Rua
+        type: string
+        x-order: "3"
+      zip_code:
+        description: CEP
+        type: string
+        x-order: "6"
+    type: object
+  models.Date:
+    properties:
+      end:
+        description: Data e hora de término
+        type: string
+        x-order: "1"
+      start:
+        description: Data e hora de início
+        type: string
+        x-order: "0"
+    type: object
+  models.Event:
+    properties:
+      address:
+        allOf:
+        - $ref: '#/definitions/models.Address'
+        description: Endereço completo do evento
+        x-order: "2"
+      capacity:
+        description: Lotação máxima do evento
+        type: integer
+        x-order: "7"
+      date:
+        allOf:
+        - $ref: '#/definitions/models.Date'
+        description: Data do evento
+        x-order: "3"
+      description:
+        description: Descrição do evento (markdown ou WYSIWYG)
+        type: string
+        x-order: "6"
+      id:
+        description: ID do evento
+        type: string
+        x-order: "0"
+      model:
+        description: Modelo do evento (Presencial, Remoto, Híbrido)
+        type: string
+        x-order: "4"
+      name:
+        description: Nome do evento
+        type: string
+        x-order: "1"
+      photo:
+        description: Foto (Banner) do evento
+        type: string
+        x-order: "5"
+      type:
+        allOf:
+        - $ref: '#/definitions/models.Type'
+        description: Tipo de ingresso (Livre, Compra, Convite, Híbrido)
+        x-order: "8"
+    type: object
+  models.Type:
+    properties:
+      description:
+        description: Descrição do tipo de ingresso (o que ele implica)
+        type: string
+        x-order: "1"
+      label:
+        description: Tipo de ingresso (Livre, Compra, Convite, Híbrido)
+        type: string
+        x-order: "0"
+    type: object
   models.User:
     properties:
       email:
@@ -43,4 +138,43 @@ paths:
       summary: GET usuários
       tags:
       - example
+  /events:
+    get:
+      description: Retornar uma lista contendo todos os eventos ativos na aplicação
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              data:
+                items:
+                  $ref: '#/definitions/models.Event'
+                type: array
+              success:
+                type: boolean
+            type: object
+      summary: Retorna uma lista dos eventos
+      tags:
+      - Eventos
+    post:
+      consumes:
+      - application/json
+      description: Cadastra um novo evento na aplicação com o status ativo
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              message:
+                type: string
+              success:
+                type: boolean
+            type: object
+      summary: Cadastra um novo evento
+      tags:
+      - Eventos
 swagger: "2.0"

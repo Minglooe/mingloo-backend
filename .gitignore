@@ -46,3 +46,6 @@ go.sum
 # Local development files
 local/
 tmp/
+
+# Binary
+server
